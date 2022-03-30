@@ -2,7 +2,7 @@ import './App.css';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { useEffect, useState } from 'react';
-import ListOfTodo from './components/ListOfTodo';
+import UsersList from './components/UserList';
 
 function App() {
 	const [auth, setAuth] = useState(
@@ -22,6 +22,16 @@ function App() {
 		});
 	}, []);
 
+	const handleCreate = () => {
+
+	}
+
+	const handleDelete = () => {
+
+	}
+
+	const handleEdit = () => {}
+
 	const loginWithGoogle = () => {
 		firebase
 			.auth()
@@ -36,10 +46,17 @@ function App() {
 
 	return (
 		<div className="App">
-			{auth ? (
-				<ListOfTodo token={token} />
+			{auth ? (<>
+				<UsersList token={token} handleEdit={handleEdit} handleDelete={handleDelete} />
+				<button onClick={handleCreate}>Create New User</button>
+			</>
 			) : (
-				<button onClick={loginWithGoogle}>Login with Google</button>
+				<>
+					<button onClick={loginWithGoogle}>Login with Google</button>
+					<p>Also you can login with email and password</p>
+					<input type={'text'}/>
+					<input type={'password'}/>
+				</>
 			)}
 		</div>
 	);
